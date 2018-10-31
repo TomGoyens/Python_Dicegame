@@ -33,7 +33,7 @@ def initiateDice():
         else:
             initDice = 1
 
-    int(DiceNumber)
+    DiceNumber = int(DiceNumber)
     return DiceNumber
 
 def initiateDiceSides():
@@ -44,12 +44,12 @@ def initiateDiceSides():
         for character in DiceSides:
             if character  not in "0123456789":
                 tally += 1
-        if tally > 0 or int(DiceNumber) == 0 or int(DiceNumber) == 1 or int(DiceNumber) == 2:
+        if tally > 0 or int(DiceSides) == 0 or int(DiceSides) == 1 or int(DiceSides) == 2:
             print ("Please enter an integer (minimun is '3').")
         else:
-            initDice = 1
+            initSide = 1
 
-    int(DiceSides)
+    DiceSides = int(DiceSides)
     return DiceSides
 
 #roll funtion generates random numbers between 1 and 6 for number of dice given
