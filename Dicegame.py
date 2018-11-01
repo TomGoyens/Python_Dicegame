@@ -31,7 +31,7 @@ while True:
         DiceDupes = dupelist(DiceRoll, DiceNumber, DiceSides)#list of the number of times a number has been rolled
 
         print ("your Diceroll is:" + str(DiceRoll))
-        print ("Number of times you got a number(in order):" + str(DiceDupes))
+#        print ("Number of times you got a number(in order):" + str(DiceDupes))
 
         Qroll = input("Play again? (y/n): ")
 

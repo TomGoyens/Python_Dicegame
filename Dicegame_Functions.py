@@ -74,7 +74,3 @@ def dupelist(DiceRoll,DiceNumber, DiceSides):
     for i in range(DiceSides):
         DiceDupes[i] = dupecheck(i+1,DiceRoll, DiceNumber)
     return DiceDupes
-
-#def PointsCalc(DiceDupes, DIceSides):
-#    for i in range(DiceSides):
-#        if DiceDupes[i]==
