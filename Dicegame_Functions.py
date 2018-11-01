@@ -1,56 +1,71 @@
 import random
 #import math
 
-#ik weet niet 100% of deze functie juist is benaamd
-def Initialisatie():
-    Qroll = input("Wanna play? (y/n): ")
-    return Qroll
+#asks user input for a 'yes' or 'no' anwser
+def yorn(Question):
+    while True:
+        Qroll = input(Question +" (y/n): ")
+        print ("")
+        if Qroll == "y"or Qroll == "Y":
+            return "y"
+        elif Qroll == "n"or Qroll == "N":
+            return "n"
+        else:
+            print ("please enter either 'y' or 'n'  (or 'Y'/'N')")
+            print ("")
 
+def initialise():
+    Question = "Wanna play?"
+    return yorn(Question)
+
+def PlayAgain():
+    Question = "Play again?"
+    return yorn(Question)
 
 #Quit doublecheck:
 def QuitCheck():
+    Question = "Are you sure you want to quit?"
+    return yorn(Question)
 
-    Qroll = input("Are you sure? (y/n): ")
+#asks user for input on the gamemode. currently available are free dice throwing and Poker Dice
+def Gamemode():
+    while True:
+        mode = input ("select your gamemode. ('0' for free custom dice rolling, '1' for poker dice): ")
+        print ("")
+        if int(mode)==0 or int(mode)==1:
+            mode = int(mode)
+            return mode
+        print ("please enter a valid character.")
+        print ("")
 
-    if Qroll == "y"or Qroll == "Y":
-        return "y"
-    elif Qroll == "n"or Qroll == "N":
-        return Qroll
-    else:
-        print ("please enter either 'y' or 'n'  (or 'Y'/'N')")
+def AskNum(Question, Min):
+    init = 0
+    while init == 0:
+        tally = 0
+        Number = input("Please enter the number of "+str(Question)+".: ")
+        print ("")
+        for character in Number:
+            if character  not in "0123456789":
+                tally += 1
+        if tally > 0 or int(Number) < Min:
+            print ("Please enter an integer (at least '"+str(Min)+"').")
+            print ("")
+        else:
+            init = 1
+    Number = int(Number)
+    return Number
 
 #function to get number of dice
 def initiateDice():
-    initDice = 0
-    while initDice == 0:
-        tally = 0
-        DiceNumber = input("Please enter the number of Dice.: ") #gets number of dice to be rolled and keeps asking until you give a damn integer!
-        for character in DiceNumber:
-            if character  not in "0123456789":
-                tally += 1
-        if tally > 0 or int(DiceNumber) == 0:
-            print ("Please enter an integer (greater than '0').")
-        else:
-            initDice = 1
+    Question = "Dice"
+    Min = 1
+    return AskNum(Question, Min)
 
-    DiceNumber = int(DiceNumber)
-    return DiceNumber
-
+#function to get number sides of the dice
 def initiateDiceSides():
-    initSide = 0
-    while initSide == 0:
-        tally = 0
-        DiceSides = input("Please enter the number of sides of the Dice.: ") #gets number of sides of the dice to be rolled and keeps asking until you give a damn integer!
-        for character in DiceSides:
-            if character  not in "0123456789":
-                tally += 1
-        if tally > 0 or int(DiceSides) == 0 or int(DiceSides) == 1 or int(DiceSides) == 2:
-            print ("Please enter an integer (minimun is '3').")
-        else:
-            initSide = 1
-
-    DiceSides = int(DiceSides)
-    return DiceSides
+    Question = "Sides of the Dice"
+    Min = 3
+    return AskNum(Question, Min)
 
 #roll funtion generates random numbers between 1 and 6 for number of dice given
 def roll(DiceNumber, DiceSides):
@@ -74,3 +89,48 @@ def dupelist(DiceRoll,DiceNumber, DiceSides):
     for i in range(DiceSides):
         DiceDupes[i] = dupecheck(i+1,DiceRoll, DiceNumber)
     return DiceDupes
+
+def sum(list):
+    sum = 0
+    for i in range (len(list)):
+        sum += list[i]
+    return sum
+
+def Pokerify(DiceRoll, DiceNumber):
+    for i in range(DiceNumber):
+        if DiceRoll[i] == 1:
+            DiceRoll[i] = "9"
+        elif DiceRoll[i] == 2:
+            DiceRoll[i] = "10"
+        elif DiceRoll[i] == 3:
+            DiceRoll[i] = "J"
+        elif DiceRoll[i] == 4:
+            DiceRoll[i] = "Q"
+        elif DiceRoll[i] == 5:
+            DiceRoll[i] = "K"
+        else:
+            DiceRoll[i] = "A"
+    return DiceRoll
+
+def PokerScore(DiceDupes):
+    DiceDupesSorted = sorted(DiceDupes, reverse=True)
+    if DiceDupesSorted[0] == 5:
+        Score = "Five of a kind!"
+    elif DiceDupesSorted[0] == 4:
+        Score = "Four of a kind!"
+    elif DiceDupesSorted[0] == 3 and DiceDupesSorted[1] == 2:
+        Score = "Full house!"
+    elif DiceDupesSorted[4] != 0 and DiceDupes[0] == 0:
+        Score = "It's a straight!"
+    elif DiceDupesSorted[0] == 3:
+        Score = "Three of a kind!"
+    elif DiceDupesSorted[0] == 2:
+        if DiceDupesSorted[1] == 2:
+            Score = "Two pair!"
+        else:
+            Score = "Two of a kind!"
+    else:
+        Score = "It's a bust!"
+    return Score
+
+#def Pokerify2(DiceDupes, DiceNumber):
