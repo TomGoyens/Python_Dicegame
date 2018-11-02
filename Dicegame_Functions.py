@@ -29,14 +29,15 @@ def QuitCheck():
 #asks user for input on the gamemode. currently available are free dice throwing and Poker Dice
 def Gamemode():
     while True:
-        mode = input ("select your gamemode. ('0' for free custom dice rolling, '1' for poker dice): ")
+        Mode = input ("select your gamemode. ('0' for free custom dice rolling, '1' for poker dice): ")
         print ("")
-        if int(mode)==0 or int(mode)==1:
-            mode = int(mode)
-            return mode
+        if Mode == "0" or Mode == "1" or Mode == "2":
+            Mode = int(Mode)
+            return Mode
         print ("please enter a valid character.")
         print ("")
 
+#function to ask user to input an integer higher than a certian minimum
 def AskNum(Question, Min):
     init = False
     while init == False:
@@ -89,12 +90,7 @@ def dupelist(DiceRoll,DiceNumber, DiceSides):
         DiceDupes[i] = dupecheck(i+1,DiceRoll, DiceNumber)
     return DiceDupes
 
-def sum(list):
-    sum = 0
-    for i in range (len(list)):
-        sum += list[i]
-    return sum
-
+#function to change the diceroll to it's Poker dice counterpart
 def Pokerify(DiceRoll, DiceNumber):
     for i in range(DiceNumber):
         if DiceRoll[i] == 1:
@@ -111,10 +107,11 @@ def Pokerify(DiceRoll, DiceNumber):
             DiceRoll[i] = "A"
     return DiceRoll
 
+#function to check the score of the (poker)diceroll
 def PokerScore(DiceDupes):
     DiceDupesSorted = sorted(DiceDupes, reverse=True)
     if DiceDupesSorted[0] == 5:
-        Score = "Five of a kind!"
+        Score = "Five of a kind!\n                                   .''.       \n       .''.      .        *''*    :_\\/_:     . \n      :_\\/_:   _\\(/_  .:.*_\\/_*   : /\\ :  .'.:.'.\n  .''.: /\\ :   ./)\\   ':'* /\\ * :  '..'.  -=:o:=-\n :_\\/_:'.:::.    ' *''*    * '.\\'/.' _\\(/_'.':'.'\n : /\\ : :::::     *_\\/_*     -= o =-  /)\\    '  *\n  '..'  ':::'     * /\\ *     .'/.\\'.   '\n      *            *..*         :"
     elif DiceDupesSorted[0] == 4:
         Score = "Four of a kind!"
     elif DiceDupesSorted[0] == 3 and DiceDupesSorted[1] == 2:
@@ -131,5 +128,3 @@ def PokerScore(DiceDupes):
     else:
         Score = "It's a bust!"
     return Score
-
-#def Pokerify2(DiceDupes, DiceNumber):
