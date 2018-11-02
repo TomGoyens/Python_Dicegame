@@ -14,7 +14,7 @@ def yorn(Question):
             print ("please enter either 'y' or 'n'  (or 'Y'/'N')")
             print ("")
 
-def initialise():
+def Start():
     Question = "Wanna play?"
     return yorn(Question)
 
@@ -22,7 +22,6 @@ def PlayAgain():
     Question = "Play again?"
     return yorn(Question)
 
-#Quit doublecheck:
 def QuitCheck():
     Question = "Are you sure you want to quit?"
     return yorn(Question)
@@ -39,8 +38,8 @@ def Gamemode():
         print ("")
 
 def AskNum(Question, Min):
-    init = 0
-    while init == 0:
+    init = False
+    while init == False:
         tally = 0
         Number = input("Please enter the number of "+str(Question)+".: ")
         print ("")
@@ -51,7 +50,7 @@ def AskNum(Question, Min):
             print ("Please enter an integer (at least '"+str(Min)+"').")
             print ("")
         else:
-            init = 1
+            init = True
     Number = int(Number)
     return Number
 

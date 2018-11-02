@@ -1,14 +1,14 @@
 from Dicegame_Functions import *
 
-init = 0
-initDice = 0
+init = False
+initDice = False
 
 while True:
 
 #initialisatie
-    if init == 0:
-        Qroll = initialise()
-        init = 1
+    if init == False:
+        Qroll = Start()
+        init = True
 
 #Quit doublecheck:
     if Qroll == "n" or Qroll == "N":
@@ -22,7 +22,7 @@ while True:
 #playing the 'game'
     elif Qroll == "y" or Qroll == "Y":
 
-        if initDice == 0:
+        if initDice == False:
             Mode = Gamemode()
             if Mode == 0:
                 DiceNumber = initiateDice()
@@ -30,7 +30,7 @@ while True:
             elif Mode == 1:
                 DiceNumber = 5
                 DiceSides = 6
-            initDice = 1
+            initDice = True
 
         DiceRoll = roll(DiceNumber, DiceSides) #rolls the dice and saves the roll
         DiceDupes = dupelist(DiceRoll, DiceNumber, DiceSides)#list of the number of times a number has been rolled
