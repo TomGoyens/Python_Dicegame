@@ -67,6 +67,12 @@ def initiateDiceSides():
     Min = 3
     return AskNum(Question, Min)
 
+#function to get number of dicethrows
+def initiateThrows():
+    Question = "times you want to throw the dice"
+    Min = 1
+    return AskNum(Question, Min)
+
 #roll funtion generates random numbers between 1 and 6 for number of dice given
 def roll(DiceNumber, DiceSides):
     DiceRoll = [0]*DiceNumber
@@ -76,7 +82,7 @@ def roll(DiceNumber, DiceSides):
     return DiceRoll
 
 #dupecheck function checks the number of duplicates for number given
-def dupecheck(number,DiceRoll, DiceNumber):
+def Dupecheck(number,DiceRoll, DiceNumber):
     tally = 0
     for i in range(DiceNumber):
         if number == DiceRoll[i]:
@@ -84,10 +90,10 @@ def dupecheck(number,DiceRoll, DiceNumber):
     return tally
 
 #dupelist makes a list of possible duplicates (for each number possible)
-def dupelist(DiceRoll,DiceNumber, DiceSides):
+def Dupelist(DiceRoll,DiceNumber, DiceSides):
     DiceDupes = [0]*DiceSides
     for i in range(DiceSides):
-        DiceDupes[i] = dupecheck(i+1,DiceRoll, DiceNumber)
+        DiceDupes[i] = Dupecheck(i+1,DiceRoll, DiceNumber)
     return DiceDupes
 
 #function to change the diceroll to it's Poker dice counterpart
@@ -108,23 +114,55 @@ def Pokerify(DiceRoll, DiceNumber):
     return DiceRoll
 
 #function to check the score of the (poker)diceroll
-def PokerScore(DiceDupes):
+#def PokerScore(DiceDupes):
+#    DiceDupesSorted = sorted(DiceDupes, reverse=True)
+#    if DiceDupesSorted[0] == 5:
+#        Score = "Five of a kind!\n                                   .''.       \n       .''.      .        *''*    :_\\/_:     . \n      :_\\/_:   _\\(/_  .:.*_\\/_*   : /\\ :  .'.:.'.\n  .''.: /\\ :   ./)\\   ':'* /\\ * :  '..'.  -=:o:=-\n :_\\/_:'.:::.    ' *''*    * '.\\'/.' _\\(/_'.':'.'\n : /\\ : :::::     *_\\/_*     -= o =-  /)\\    '  *\n  '..'  ':::'     * /\\ *     .'/.\\'.   '\n      *            *..*         :"
+#    elif DiceDupesSorted[0] == 4:
+#        Score = "Four of a kind!"
+#    elif DiceDupesSorted[0] == 3 and DiceDupesSorted[1] == 2:
+#        Score = "Full house!"
+#    elif DiceDupesSorted[4] != 0 and DiceDupes[0] == 0:
+#        Score = "It's a straight!"
+#    elif DiceDupesSorted[0] == 3:
+#        Score = "Three of a kind!"
+#    elif DiceDupesSorted[0] == 2:
+#        if DiceDupesSorted[1] == 2:
+#            Score = "Two pair!"
+#        else:
+#            Score = "Two of a kind!"
+#    else:
+#        Score = "It's a bust!"
+#    return Score
+
+def ComboDetect(DiceDupes):
     DiceDupesSorted = sorted(DiceDupes, reverse=True)
     if DiceDupesSorted[0] == 5:
-        Score = "Five of a kind!\n                                   .''.       \n       .''.      .        *''*    :_\\/_:     . \n      :_\\/_:   _\\(/_  .:.*_\\/_*   : /\\ :  .'.:.'.\n  .''.: /\\ :   ./)\\   ':'* /\\ * :  '..'.  -=:o:=-\n :_\\/_:'.:::.    ' *''*    * '.\\'/.' _\\(/_'.':'.'\n : /\\ : :::::     *_\\/_*     -= o =-  /)\\    '  *\n  '..'  ':::'     * /\\ *     .'/.\\'.   '\n      *            *..*         :"
+        Combo = 7
     elif DiceDupesSorted[0] == 4:
-        Score = "Four of a kind!"
+        Combo = 6
     elif DiceDupesSorted[0] == 3 and DiceDupesSorted[1] == 2:
-        Score = "Full house!"
+        Combo = 5
     elif DiceDupesSorted[4] != 0 and DiceDupes[0] == 0:
-        Score = "It's a straight!"
+        Combo = 4
     elif DiceDupesSorted[0] == 3:
-        Score = "Three of a kind!"
+        Combo = 3
     elif DiceDupesSorted[0] == 2:
         if DiceDupesSorted[1] == 2:
-            Score = "Two pair!"
+            Combo = 2
         else:
-            Score = "Two of a kind!"
+            Combo = 1
     else:
-        Score = "It's a bust!"
-    return Score
+        Combo = 0
+    return Combo
+
+def PokerScore(Combo):
+    Scorelist = ["It's a bust!","Two of a kind!","Two pair!","Three of a kind!","It's a straight!","Full house!","Four of a kind!","Five of a kind!\n                                   .''.       \n       .''.      .        *''*    :_\\/_:     . \n      :_\\/_:   _\\(/_  .:.*_\\/_*   : /\\ :  .'.:.'.\n  .''.: /\\ :   ./)\\   ':'* /\\ * :  '..'.  -=:o:=-\n :_\\/_:'.:::.    ' *''*    * '.\\'/.' _\\(/_'.':'.'\n : /\\ : :::::     *_\\/_*     -= o =-  /)\\    '  *\n  '..'  ':::'     * /\\ *     .'/.\\'.   '\n      *            *..*         :"]
+    return Scorelist[Combo]
+
+#function that rolls the dice a certain number of times and saves the scores of all the rolls in a list
+def autoroll(DiceNumber, DiceSides, Num_of_Rolls):
+    ComboList = []
+    for i in range(Num_of_Rolls):
+        ComboList.append(ComboDetect(Dupelist(roll(DiceNumber, DiceSides),DiceNumber, DiceSides)))
+    return ComboList
