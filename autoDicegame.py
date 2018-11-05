@@ -1,9 +1,9 @@
 from Dicegame_Functions import *
 
 init = False
-initDice = False
+play = True
 
-while True:
+while play == True:
 
 #initialisatie
     if init == False:
@@ -15,9 +15,9 @@ while True:
 
         Qroll = QuitCheck()
         if Qroll == "y":
-            play == False
+            play = False
         elif Qroll == "n":
-            init = 0
+            init = False
 
 #playing the 'game'
     elif Qroll == "y" or Qroll == "Y":
@@ -35,4 +35,6 @@ while True:
         FullH = Combolist.count(5)
         Four = Combolist.count(6)
         Five = Combolist.count(7)
-        print("You threw the Dice "+str(Num_of_Rolls)+" Times. In this you rolled nothing "+str(Bust)+" amount of times!\nYou got Two of a kind "+str(Two)+" times!\n You got "+TwoTwo+" Two pairs!\n you got Three of a kind "+Three+" Times!\n You got a straight "+Straight+" Times!\n You managed to get "+FullH+" Full Houses!\nGood job "+Four+" Four of a kinds!\n Wow, you got Five of a kind "+Five+"Times! Lucky you!\n                                   .''.       \n       .''.      .        *''*    :_\\/_:     . \n      :_\\/_:   _\\(/_  .:.*_\\/_*   : /\\ :  .'.:.'.\n  .''.: /\\ :   ./)\\   ':'* /\\ * :  '..'.  -=:o:=-\n :_\\/_:'.:::.    ' *''*    * '.\\'/.' _\\(/_'.':'.'\n : /\\ : :::::     *_\\/_*     -= o =-  /)\\    '  *\n  '..'  ':::'     * /\\ *     .'/.\\'.   '\n      *            *..*         :")
+        print("You threw the Dice "+str(Num_of_Rolls)+" Times.\n In this you rolled nothing "+str(Bust)+" amount of times!\n You got Two of a kind "+str(Two)+" times!\n You got "+str(TwoTwo)+" Two pairs!\n you got Three of a kind "+str(Three)+" Times!\n You got a straight "+str(Straight)+" Times!\n You managed to get "+str(FullH)+" Full Houses!\n Good job "+str(Four)+" Four of a kinds!\n Wow, you got Five of a kind "+str(Five)+" Times! Lucky you!\n                                   .''.       \n       .''.      .        *''*    :_\\/_:     . \n      :_\\/_:   _\\(/_  .:.*_\\/_*   : /\\ :  .'.:.'.\n  .''.: /\\ :   ./)\\   ':'* /\\ * :  '..'.  -=:o:=-\n :_\\/_:'.:::.    ' *''*    * '.\\'/.' _\\(/_'.':'.'\n : /\\ : :::::     *_\\/_*     -= o =-  /)\\    '  *\n  '..'  ':::'     * /\\ *     .'/.\\'.   '\n      *            *..*         :")
+
+        Qroll = PlayAgain()
